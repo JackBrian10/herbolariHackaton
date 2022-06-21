@@ -1,0 +1,32 @@
+import numpy as np
+import pandas as pd
+from flask import jsonify
+
+def nearestTree(request):
+    
+    ##Coordinates
+    request_json = request.get_json()  # obtenemos parametros pasados en la petición 
+    
+    # coordenadas de nuestra posición actual 
+    lat = request_json['latitude']
+    lon = request_json['longitude']
+    
+
+    data = pd.read_csv('arbres_UAB.csv',sep=';',usecols=[0,1])
+    df = pd.read_csv('arbres_UAB.csv',sep=';')
+    points = [tuple(x) for x in data.values]  # nos quedamos con las dos primeras columnas que son las coordenadas de cada arbol 
+    new_point = [lat,lon]
+
+    index = np.argmin(np.sum((np.array(points) - np.array(new_point))**2,axis=1)) # cogemos las coordenadas del arbol mas cercano 
+
+    # devolvemos el arbol mas cercano (coordenadas, nombre)
+    response = { 'latitude': points[index][0], 'longitude': points[index][1], 'nameTree':df.iloc[index][2]}
+    return jsonify(response)
+
+
+
+
+#------------------------------ VERTEX AI -------------------------------------
+
+# Hemos implementado la api de VERTEX AI para la classificación, pero no hay codigo
+# como tal, solamente se subi las imagenes de train i test i se entrenaba al modelo. 

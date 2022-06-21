@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@200&display=swap');
+
+.templateback {
+    min-height: 93vh;
+    display: flex;
+}
+
+.pageTemplate {
+    width: 100%;
+}
+
+.headingTemplate {
+    font-size: 20px;
+    text-align: center;
+}
+
+@media only screen and (max-width: 768px) {
+    .headingTemplate {
+        font-size:20px;
+        display: flex;
+        justify-content: center;
+    }
+}
+
+.app-container-template {
+    width: 80vw!important;
+    max-width: 100vw !important;
+}
