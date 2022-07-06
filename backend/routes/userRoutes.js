@@ -22,15 +22,12 @@ router.route("/camera").post(async (req, res) => {
   //COMO SACAR LA AUTHORIZATION? Desde google cloud, ir a la consola y poner este comando: gcloud auth print-identity-token
 
   let authorization =
-    "eyJhbGciOiJSUzI1NiIsImtpZCI6IjU4MGFkYjBjMzJhMTc1ZDk1MGExYzE5MDFjMTgyZmMxNzM0MWRkYzQiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJhY2NvdW50cy5nb29nbGUuY29tIiwiYXpwIjoiNjE4MTA0NzA4MDU0LTlyOXMxYzRhbGczNmVybGl1Y2hvOXQ1Mm4zMm42ZGdxLmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwiYXVkIjoiNjE4MTA0NzA4MDU0LTlyOXMxYzRhbGczNmVybGl1Y2hvOXQ1Mm4zMm42ZGdxLmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwic3ViIjoiMTAyOTg4OTU5MTEyNzczNzgxMzA1IiwiZW1haWwiOiJqYWNreWNob3BjaG9wQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJhdF9oYXNoIjoiQ2w5SlpwT2duamdfcmZUeGxjRkdnZyIsImlhdCI6MTY1NTcyNzI1NiwiZXhwIjoxNjU1NzMwODU2LCJqdGkiOiI4ZDM2NmNjZWQwMGQ0NjM3NDczOWU5MmEyNjFlZWJkOWI4ZTY2MWQzIn0.krXBTWX0ADUsIVjqzHV3kL2PtZ-p0b_Xzu25CgoUJ-HIKvqmqq0FSZQl335kD3rRWY64xt4IjZISHXPAbkN3_Y3FSmyUxgC8jKTSPl2DtnRfpuNvcJNobmKzWMA-iRqD56HxtzW9JK6Nvjp_FgEcwt0vhYrcurv6uONNeB3yrxChU6qUENTnQQH6rBHWc60HmSlWPUKa0NMbp0LCwF9qf0a4lQdoIxESIVUs7yyqASvwFeHVfdK1XV9RVcICVYp2SRkntZam4zPNFxhU6aKQud8TBL9LHlax7mhjRAB_N3OnVWiNDBW--GvJMlmVHIeQHz4N3dg1kMEFzuk5HXimaQ";
-  // axios.post(url, data, options)
-  // data: { 'key': 'value' } Aqui lo importante
-  // options: { headers: { ... } } //Dentro de headers necesitaremos dos objetos: Authorization y Content-Type, en priincipio no necesitamos mas dentro de aqui
+    "eyJhbGciOiJSUzI1NiIsImtpZCI6IjI2NTBhMmNlNDdiMWFiM2JhNDA5OTc5N2Y4YzA2ZWJjM2RlOTI4YWMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJhY2NvdW50cy5nb29nbGUuY29tIiwiYXpwIjoiNjE4MTA0NzA4MDU0LTlyOXMxYzRhbGczNmVybGl1Y2hvOXQ1Mm4zMm42ZGdxLmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwiYXVkIjoiNjE4MTA0NzA4MDU0LTlyOXMxYzRhbGczNmVybGl1Y2hvOXQ1Mm4zMm42ZGdxLmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwic3ViIjoiMTAyOTg4OTU5MTEyNzczNzgxMzA1IiwiZW1haWwiOiJqYWNreWNob3BjaG9wQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJhdF9oYXNoIjoiRU9LWWNkVkcxTlNiN3d0MjdyakFoZyIsImlhdCI6MTY1NzEyNTYwNiwiZXhwIjoxNjU3MTI5MjA2LCJqdGkiOiJlMDI2NzNjNDE0ZjFmMmZkMDRjZjYwYTA0MDkwODUyYmZlMTZkNGE1In0.dOT79LaqB56gokeYxV-BOSaE8h1qTFtxBU_whpoICBhWfWGPLt0RLq7ZpU15uXEt1rIbPeR8jJGcZRNGSo_LpD_nNk5E2HXvLU8UNtRGEa5YGaw1XVUJsT7aSdKSuVP899Z5cDZP1FJklM7_jMIR9Hwj7xNBWetXpuAD7cyUCd73VmGoVCrd7XMyL8J94DeaeS34Iq-oJsAh0YFC7S7n-wzK76WWTJeEr6hMZsvM08MdTxnnLyRnm17Au1gOyDUK6UgkMivbISkHlWBFEgGKPwVLLyJDb5Pdak-yTrTdySXDTUp3A_2TSL-V1KJahhs543xYUfMspGNP838R_1ZBTw";
 
   // Recibir arbol mas cercano y sus coordenadas
   const test = await axios
     .post(
-      `https://us-central1-allergies-349815.cloudfunctions.net/nearestTree`,
+      `https://europe-west3-allergies-349815.cloudfunctions.net/nerestTree`,
       newCoords,
       {
         headers: {
@@ -39,29 +36,20 @@ router.route("/camera").post(async (req, res) => {
         },
       }
     )
-    .then((val) => val.data)
+    .then((val) => {
+      return val.data;
+    })
+
     .catch((err) => {
       console.log(err.message);
-    }); //Dentro de los corchetes {} hacer lo que haga falta con los datos
-
-  /////////////////////////////////////////////////
-  // //// PREDICCION DE IMAGEN
-  // predictionReq = {
-  //     'instances': [{ 
-  //         'content': imagen (string en base64),
-  //     }],
-  //     'parameters': {
-  //         'confidenceTreshold': 0-1,
-  //         'maxPredictions': 2
-  //     }
-  // }
+    });
 
   //PARA OBTENER ESTE TOKEN USAR EN GOOGLE CLOUD LA COMANDA gcloud auth print-access-token
-  const predictionAuthorization = `Bearer ya29.A0ARrdaM_7TBKhZF9EStRkIVdRb66TQdqgu9y4oSchz2y4bMdCytogGenWF9mS9huSJ_n3r7WB5M2u-tm-cQHKgHuDJlYBTQmld6t_AvcS4bpAQ1OKhFgCsqtGqpgrCU5wOGxU92doStRuiuR0tEb3aInrnayQyVhR_L9Z3IpoRRfCuOtLsvTPoQo9xMxIT0OCUz9n2HdtV5yiyn2hJj7nTNyrg9UyT7HGWdn8pVbSOFRPFqS9OTGIM6kLGuGI_yX8zVQaW04YUNnWUtBVEFTQVRBU0ZRRl91NjFWX3FjOW5DcFA4SDlCYWFOVXJ4NE1KZw0270`;
+  const predictionAuthorization = `Bearer ya29.a0ARrdaM9oaZ1IToyARoTLgx2f6IHt-PtuUVF0A_wva8M63g9crZLHt121Kpru27V6oo54HYdnwqM1iQ1ApnVhewAcboBgkh9B0-32qsRJ8aG-U9HLfuJhcdUUVxXvMWlaQABAe4HdKEbmjxKg-20QbOPq820Mrr1TsDhdCbPH0RGyA3KViELaaZkdopRpoysdcUEb_fu0mV9QM6QKhzwEWH6tplEngeenJXsg1HbCESp2xaHRNXrZ4lJw3IrOx-xn1Nsy0cU`;
 
   let treeName = await axios
     .post(
-      `https://europe-west4-aiplatform.googleapis.com/v1/projects/allergies-349815/locations/europe-west4/endpoints/4317104863113641984:predict`,
+      `https://europe-west4-aiplatform.googleapis.com/v1/projects/allergies-349815/locations/europe-west4/endpoints/9032936622923972608:predict`,
       {
         instances: [
           {
@@ -69,7 +57,7 @@ router.route("/camera").post(async (req, res) => {
           },
         ],
         parameters: {
-          confidenceThreshold: 0.5,
+          confidenceThreshold: 0.6,
           maxPredictions: 1,
         },
       },
@@ -104,22 +92,7 @@ router.route("/camera").post(async (req, res) => {
     res.status(200).json({ tree: treeName, closestTree: test });
   }
 
-  ////////////////////////////////////////////
-  // // AÑADIR A UN BUCKET IMAGENES
-  //    Hay que mandar un buffer de la imagen usando pipes
-  //     const storage = new Storage();
-  //     const bucket = storage.bucket('test_bucket_85632945672984')
-
-  //     const blob = bucket.file('name.jpg');
-  //     const blobStream = blob.createWriteStream()
-  //     let buf = Buffer.from(req.body.image, 'base64');
-  //     blobStream.on('finish', () => {
-  //         const publicUrl = format(`https://storage.googleapis.com/${bucket.name}/${blob.name}`)
-  //     })
-  //     blobStream.end(buf);
-  //
-
-  let random_number = Math.random(); 
+  let random_number = Math.random();
   //Export data to MongoDB:
   const new_plant = new plant_require({
     _id: random_number,

@@ -1,9 +1,7 @@
 const express = require("express");
-const notes = require("./data/notes");
 const dotenv = require("dotenv");
 const connectDB = require("./config/db");
 const userRoutes = require("./routes/userRoutes");
-const { notFound, errorHandler } = require("./middlewares/errorMiddleware");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const { getUserHistory } = require("./controllers/userControllers");
@@ -17,10 +15,12 @@ const { getUserHistory } = require("./controllers/userControllers");
  *    Añadir token en routes/userRoutes.js linea 52 const predictionAuthorization = `Bearer TOKEN`
  * 3.1 Hay que activar el extremo en Vertex AI, este contiene el modelo entrenado y el enlace para poder utilizar la llamada API.
  */
+dotenv.config();
+
 const app = express();
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '5mb'}));
+app.use(bodyParser.urlencoded({limit: '5mb', extended: true}));
 
 app.use(
   cors({
@@ -28,7 +28,7 @@ app.use(
   })
 );
 
-dotenv.config();
+
 connectDB(); // Lo comento por ahora pero esto funciona bien
 
 app.get("/", async (req, res) => {
@@ -42,7 +42,6 @@ app.get("/fotos", async (req, res) => {
 });
 
 app.use('/api/users', userRoutes)
-app.use(notFound);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server started on Port ${PORT}`));

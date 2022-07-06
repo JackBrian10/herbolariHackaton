@@ -1,9 +1,8 @@
-import React, { useState } from "react";
 import Webcam from "react-webcam";
 import axios from "axios";
 import MainScreen from "../../components/MainScreen/MainScreen";
 import { Button } from "react-bootstrap";
-import { propTypes } from "google-map-react";
+import React from "react";
 
 const videoConstraints = {
   width: 400,
@@ -59,8 +58,8 @@ const Camera = () => {
 
       setNombreArbol("Este arbol es un " + res.data.tree)
 
-
-      if (res.data.tree == res.data.closestTree.nameTree) {
+      console.log(res.data)
+      if (res.data.tree === res.data.closestTree.nameTree) {
         setPosibleArbol("")
       } else {
         setPosibleArbol("El arbol mas cercano a tu posicion que conocemos es " + res.data.closestTree.nameTree)
@@ -70,14 +69,15 @@ const Camera = () => {
 
   }
   
-  //ImgSrc es {imgSrc.toString().replace(`data:image/jpeg;base64,`, "")}
+
   return (
     <MainScreen title="Fer Foto">
       {(imgSrc != null) ?
         <div class="text-center">
-          <img src={imgSrc} class="rounded"></img>
+          <img src={imgSrc} alt="image1" class="rounded"></img>
           <br></br>
-          <Button variant="primary" onClick={envio} > OK </Button>
+          <Button variant ="primary" >Leaf Recognition</Button>
+          <Button variant="primary" onClick={envio} > Tree Recognition </Button>
           <Button variant="primary" onClick={(e) => { e.preventDefault(); setImgSrc(null) }}> Try again </Button>
           <br></br>
           

@@ -1,44 +1,28 @@
-import { GoogleMap, useLoadScript,LoadScript, Marker } from "@react-google-maps/api";
+import GoogleMaps from "simple-react-google-maps";
 import axios from "axios";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import GalleryGrid from "../../components/GalleryGrid/GalleryGrid";
 import MainScreen from "../../components/MainScreen/MainScreen";
 import Template from "../../components/Template/Template";
-
 import "./Gallery.css";
 
 function Map({ data }) {
-  let cent = { lat: 41.5000758, lng: 2.1058671 };
-
-  //const markerTest = useMemo(() => ({ lat: 41.5000758, lng: 2.1058671 }), []);
-  const markerTest = { lat: 41.492330124680805, lng: 2.146739759210027 };
-
   return (
-    <LoadScript
-      googleMapsApiKey="AIzaSyC7sUH5S7cl5Ls-fS2My5IOkPp7_2rR2FI"
-      onLoad={() => console.log("Maps loaded successfully.")}
-      onError={() => console.log("Maps returned an error.")}
-    >
-      <GoogleMap zoom={10} center={cent} mapContainerClassName="map-container">
-        <Marker
-          onLoad={() => console.log("MArker loaded successfully.")}
-          onError={() => console.log("Marker returned an error.")}
-          title={"The marker`s title will appear as a tooltip."}
-          name={"SOMA"}
-          key={1}
-          position={markerTest}
-        />
-      </GoogleMap>
-    </LoadScript>
+    <GoogleMaps
+      apiKey={"AIzaSyC7sUH5S7cl5Ls-fS2My5IOkPp7_2rR2FI"}
+      style={{ height: "600px", width: "100%" }}
+      zoom={13}
+      center={{ lat: 41.501965, lng: 2.105699 }}
+      markers={data.map((plant) => ({
+        lat: parseFloat(plant.location.latitude),
+        lng: parseFloat(plant.location.longitude),
+      }))}
+    />
   );
 }
 
 const Gallery = () => {
-  /*const mapsState = useLoadScript({
-    googleMapsApiKey: "AIzaSyC7sUH5S7cl5Ls-fS2My5IOkPp7_2rR2FI",
-  });*/
-
   const [data, setData] = useState(null);
   useEffect(() => {
     axios
@@ -48,10 +32,8 @@ const Gallery = () => {
   }, []);
 
   // Error handling.
-  if (/*mapsState.loadError ||*/ data !== null && data.error) {
+  if (data !== null && data.error) {
     let errors = [];
-    /*if (mapsState.loadError)
-      errors.push(<li>Google Maps: {mapsState.loadError}</li>);*/
     if (data.error) errors.push(<li>Backend API: {data.error}</li>);
 
     // TODO: Move error rendering into MainScreen and Template.
@@ -66,8 +48,8 @@ const Gallery = () => {
   // Rendering.
   return (
     <MainScreen title="Galería">
-      <Template title="Foto 1">
-        {/*mapsState.isLoaded &&*/ data !== null ? (
+      <Template title="Mapa">
+        {data !== null ? (
           <>
             <Map data={data.data} />
             <GalleryGrid data={data.data} />

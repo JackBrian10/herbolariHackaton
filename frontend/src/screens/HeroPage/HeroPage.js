@@ -4,14 +4,6 @@ import './HeroPage.css'
 
 const HeroPage = () => {
 
-    /*useEffect(() => {
-        const userInfo = localStorage.getItem("userInfo");
-        if (userInfo) {
-            history.pushState("/Gallery");
-        }
-
-    }, [history]);*/
-
     return <div className='main'>
         <Container>
             <Row>

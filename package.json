@@ -23,6 +23,7 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.3.3",
     "nodemon": "^2.0.16",
-    "react-webcam": "^7.0.1"
+    "react-webcam": "^7.0.1",
+    "simple-react-google-maps": "^1.1.2"
   }
 }

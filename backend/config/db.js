@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
 
 // Conexion a la base de datos. Tener en cuenta que el enlace mongodb va
-// cambiando cada vez que se enciende la maquina virtual donde tenemos la BBDD en docker.
+// cambiando cada vez que se enciende la maquina virtual donde tenemos la BBDD.
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect("mongodb://34.175.217.85:27017/test");
+    const conn = await mongoose.connect(process.env.MONGO_URI);
     //         //useUnifiedTopolgy: true,
     useNewUrlParser: true,
       //         //useCreateIndex: true,

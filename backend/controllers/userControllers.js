@@ -42,65 +42,65 @@ const loginUser = async (req, res) => {
 
   const { email, password } = req.body;
 
-  //getData();
-  // const user = await User.findOne({ email });
-  // console.log(await user.matchPassword(password));
-  // if (user && (await user.matchPassword(password))) {
-  //     res.json({
-  //         _id: user._id,
-  //         name: user.name,
-  //         email: user.email,
-  //         token: generateToken(user._id),
-  //     });
-  // }
-  // else {
-  //     res.status(400)
-  //     throw new Error('Invalid Email or Password')
-  // }
+  getData();
+  const user = await User.findOne({ email });
+  console.log(await user.matchPassword(password));
+  if (user && (await user.matchPassword(password))) {
+      res.json({
+          _id: user._id,
+          name: user.name,
+          email: user.email,
+          token: generateToken(user._id),
+      });
+  }
+  else {
+      res.status(400)
+      throw new Error('Invalid Email or Password')
+  }
 };
 
-// const getData = () => {
-//   const Adate = new Date(Date.now());
-//   const Alocation = {
-//     latitude: "1.2346",
-//     longitude: "2.63564",
-//   };
-//   const Atree = {
-//     name: "Arbolaco",
-//     info: "Es un arbol sin alergias",
-//     image: "image2.jpg",
-//   };
-//   (hist = {
-//     history: {
-//       date: Adate,
-//       location: Alocation,
-//       tree: Atree,
-//     },
-//   }),
-//     function (error, success) {
-//       console.log(success);
-//     };
-//   const user = User.findOneAndUpdate(
-//     { _id: "628bda564d7f3dc9a3fa0fde" },
-//     { $push: hist },
-//     (error, success) => {
-//       error ? console.log(error) : console.log(success);
-//     }
-//   );
-// };
+const getData = () => {
+  const Adate = new Date(Date.now());
+  const Alocation = {
+    latitude: "1.2346",
+    longitude: "2.63564",
+  };
+  const Atree = {
+    name: "Arbolaco",
+    info: "Es un arbol sin alergias",
+    image: "image2.jpg",
+  };
+  (hist = {
+    history: {
+      date: Adate,
+      location: Alocation,
+      tree: Atree,
+    },
+  }),
+    function (error, success) {
+      console.log(success);
+    };
+  const user = User.findOneAndUpdate(
+    { _id: "628bda564d7f3dc9a3fa0fde" },
+    { $push: hist },
+    (error, success) => {
+      error ? console.log(error) : console.log(success);
+    }
+  );
+};
 
-// const getLatitude = async () => {
-//   let data = "";
-//   console.log("#######################");
-//   await User.findOne({ user: "Brian" }, (err, u) => {
-//     console.log(u.history[0].location);
-//     data = u.history[0].location;
-//   })
-//     .clone()
-//     .catch((err) => {
-//       console.log(err);
-//     });
-// };
+const getLatitude = async () => {
+  let data = "";
+  console.log("#######################");
+  await User.findOne({ user: "Brian" }, (err, u) => {
+    console.log(u.history[0].location);
+    data = u.history[0].location;
+  })
+    .clone()
+    .catch((err) => {
+      console.log(err);
+    });
+};
 
 const getUserHistory = async (req, res) => new Promise((resolve, reject) => {
   Plant.find({}, (error, data) => {

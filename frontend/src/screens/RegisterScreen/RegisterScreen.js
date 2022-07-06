@@ -19,7 +19,7 @@ const RegisterScreen = () => {
     const submitHandler = async (e) => {
         e.preventDefault();
 
-        if (password != confirmpassword) {
+        if (password !== confirmpassword) {
             setMessage('Les contrasenyes no coincideixen')
         } else {
             setMessage(null)

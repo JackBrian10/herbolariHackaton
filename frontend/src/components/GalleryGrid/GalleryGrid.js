@@ -16,8 +16,8 @@ const GalleryGrid = ({ data }) => {
               <Card.Body>
                 <Card.Title>{plant.name || "unknown name"}</Card.Title>
                 <Card.Text>
-                  {plant.location.latitude}
-                  {plant.location.longitude}
+                   Latitude: {plant.location.latitude} <br/>
+                   Longitude: {plant.location.longitude}
                 </Card.Text>
               </Card.Body>
               <Card.Footer>
